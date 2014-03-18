@@ -1,0 +1,27 @@
+{
+  "name": "adjust-html",
+  "version": "0.0.1",
+  "description": "Adjust outgoing HTML on the fly.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "connect",
+    "middleware",
+    "html"
+  ],
+  "author": "Ed J",
+  "license": "BSD-2-Clause",
+  "devDependencies": {
+    "chai": "~1.8.1",
+    "request": "^2.34.0",
+    "connect": "^2.14.2",
+    "memorystream": "^0.2.0"
+  },
+  "dependencies": {
+    "through": "^2.3.4",
+    "underscore": "^1.6.0",
+    "trumpet": "^1.6.3"
+  }
+}
