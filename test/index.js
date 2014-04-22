@@ -106,6 +106,64 @@ describe('adjust-head', function() {
             });
         });
 
+        it('should append to the HEAD when given a function.', function(done) {
+            var responseText = '<html><head>I was here first</head></html>';
+            var content = function () {
+                return 'Test!'
+            };
+
+            var expectedResponse = '<html><head>I was here firstTest!</head></html>';
+
+            var handler = function(request, response) {
+                response.setHeader('Content-Type', 'text/html');
+
+                response.end(responseText);
+            };
+
+            var middleware = adjustHead({
+                content: content
+            });
+
+            var server = runServer(middleware, handler);
+
+            server.request(function(err, response, body) {
+                body.should.equal(expectedResponse);
+
+                server.close(function() {
+                    done();
+                });
+            });
+        });
+
+        it('should append to the HEAD when given a function with a callback.', function(done) {
+            var responseText = '<html><head>I was here first</head></html>';
+            var content = function (callback) {
+                callback(null, 'Test!');
+            };
+
+            var expectedResponse = '<html><head>I was here firstTest!</head></html>';
+
+            var handler = function(request, response) {
+                response.setHeader('Content-Type', 'text/html');
+
+                response.end(responseText);
+            };
+
+            var middleware = adjustHead({
+                content: content
+            });
+
+            var server = runServer(middleware, handler);
+
+            server.request(function(err, response, body) {
+                body.should.equal(expectedResponse);
+
+                server.close(function() {
+                    done();
+                });
+            });
+        });
+
         it('should append to a stream.', function(done) {
             var responseText = '<html><head>This should stay</head></html>';
             var content = 'Some other test..';
